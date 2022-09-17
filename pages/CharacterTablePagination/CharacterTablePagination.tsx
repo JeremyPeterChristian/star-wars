@@ -13,6 +13,7 @@ interface CTPProps {
 }
 
 export const CharacterTablePagination = ({ currentPage, setCurrentPage }: CTPProps) => <Pagination
+    data-testid='table-pagination'
     current={currentPage}
     total={82}
     onChange={getOnChange(setCurrentPage)}
