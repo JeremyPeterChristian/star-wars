@@ -7,8 +7,9 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { CharacterTable } from './CharacterTable/CharacterTable';
 const queryClient = new QueryClient();
 import { CharacterTablePagination } from './CharacterTablePagination/CharacterTablePagination';
-
+import { usePaginationMetrics } from '../api/fetch';
 import { useRouter } from 'next/router';
+import Router from 'next/router';
 
 const StyledContent = styled(Content)`
   color:red
@@ -18,13 +19,24 @@ const App: React.FC = () => {
 
   const { query, isReady } = useRouter();
   const [currentPage, setCurrentPage] = useState(1)
+  const { isLoading, isError, data: pageLimit } = usePaginationMetrics()
 
   useEffect(() => {
-    const page = parseInt(query?.page as string ?? '1');
-    setCurrentPage(page)
-  }, [query])
+    if (!isLoading && pageLimit) {
+      const page = parseInt(query?.page as string ?? '1');
+      if (page > pageLimit) {
+        Router.push({ query: { page: pageLimit } })
+        setCurrentPage(pageLimit)
+      } else if (page < 1) {
+        Router.push({ query: { page: 1 } })
+        setCurrentPage(1)
+      } else {
+        setCurrentPage(page)
+      }
+    }
+  }, [query, pageLimit, isLoading])
 
-  if (!isReady) {
+  if (!isReady || isLoading) {
     return <div>loading...</div>
   }
 

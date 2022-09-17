@@ -14,7 +14,10 @@ export const usePaginationMetrics = () => {
   return useQuery([queryString], () =>
     axios.get(queryString).then((res) => {
       const { count, results } = res.data;
-      const numPages = count % results.length;
+      const numPages =
+        Math.floor(count / results.length) +
+        (count % results.length > 0 ? 1 : 0);
+      console.log(count, results.length, numPages);
       return numPages;
     })
   );

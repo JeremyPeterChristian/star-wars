@@ -1,12 +1,20 @@
 import React from "react";
 import { Pagination } from "antd";
+import Router from 'next/router';
 
-const getOnChange = (callback) => (page: number) => {
-    const queryParams = new URLSearchParams(window.location.search);
-    console.log(window.location.search)
-    queryParams.set('page', String(page));
-    history.replaceState(null, '', "?" + queryParams.toString());
+const getOnChange = (callback: React.Dispatch<React.SetStateAction<number>>) => (page: number) => {
+    Router.push({ query: { page } })
     callback(page)
 }
 
-export const CharacterTablePagination = ({ currentPage, setCurrentPage }) => <Pagination current={currentPage} total={82} onChange={getOnChange(setCurrentPage)} />
+interface CTPProps {
+    currentPage: number
+    setCurrentPage: React.Dispatch<React.SetStateAction<number>>
+}
+
+export const CharacterTablePagination = ({ currentPage, setCurrentPage }: CTPProps) => <Pagination
+    current={currentPage}
+    total={82}
+    onChange={getOnChange(setCurrentPage)}
+    showSizeChanger={false}
+/>
