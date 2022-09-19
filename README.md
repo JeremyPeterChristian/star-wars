@@ -26,6 +26,8 @@ Running the following will open the cypress testing suite
 yarn cypress
 ```
 
+(you will need to have next-js running in another shell!)
+
 Select End to End testing
 Then Chrome
 Then the 'spec' file
