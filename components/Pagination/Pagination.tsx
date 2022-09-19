@@ -1,5 +1,5 @@
 import React from "react";
-import { Pagination } from "antd";
+import { Pagination as AntPagination } from "antd";
 import Router from 'next/router';
 
 const getOnChange = (callback: React.Dispatch<React.SetStateAction<number>>) => (page: number) => {
@@ -10,12 +10,15 @@ const getOnChange = (callback: React.Dispatch<React.SetStateAction<number>>) => 
 interface CTPProps {
     currentPage: number
     setCurrentPage: React.Dispatch<React.SetStateAction<number>>
+    count: number
 }
 
-export const CharacterTablePagination = ({ currentPage, setCurrentPage }: CTPProps) => <Pagination
+const Pagination = ({ currentPage, setCurrentPage, count }: CTPProps) => <AntPagination
     data-testid='table-pagination'
     current={currentPage}
-    total={82}
+    total={count}
     onChange={getOnChange(setCurrentPage)}
     showSizeChanger={false}
 />
+
+export default Pagination

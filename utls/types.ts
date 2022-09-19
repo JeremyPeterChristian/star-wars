@@ -16,3 +16,10 @@ export interface Character {
   edited: string;
   url: string;
 }
+
+export interface PeopleResponse {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: Character[];
+}
