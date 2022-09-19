@@ -1,9 +1,9 @@
-import { render, screen, act } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import Pagination from './Pagination'
 import React from 'react'
 import userEvent from '@testing-library/user-event'
-// import { act } from 'react-dom/test-utils';
+
 
 jest.mock("next/router", () => {
     return {

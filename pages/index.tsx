@@ -18,7 +18,7 @@ const StyledContent = styled(Content)`
 `
 
 const StyledFooter = styled(Footer)`
-  height:10vh
+  height:10vh;
 `
 
 const App: React.FC = () => {
