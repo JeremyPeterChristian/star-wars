@@ -1,5 +1,5 @@
 import { ColumnsType } from 'antd/lib/table';
-import { Character } from '../../utls/types';
+import { Character } from '../../utils/types';
 
 // takes a string and returns 0 if it cannot be parsed into a float
 const forceFloat = (numString: string) => {

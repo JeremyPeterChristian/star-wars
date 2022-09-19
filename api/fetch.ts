@@ -1,4 +1,4 @@
-import { PeopleResponse } from '../utls/types';
+import { PeopleResponse } from '../utils/types';
 import { useQuery, UseQueryResult } from 'react-query';
 import axios from 'axios';
 

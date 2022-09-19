@@ -9,8 +9,8 @@ const queryClient = new QueryClient();
 import Pagination from '../components/Pagination/Pagination';
 import { usePaginationMetrics } from '../api/fetch';
 import { useRouter } from 'next/router';
-import Router from 'next/router';
 import Error from 'next/error'
+import { handlePageMetrics } from '../utils/helpers'
 
 const StyledContent = styled(Content)`
   padding:2em;
@@ -30,28 +30,7 @@ const App: React.FC = () => {
   // coalesce into undefined variables if there is no data
   const { pageLimit, count } = data ?? {}
 
-  useEffect(() => {
-    if (!isLoading && pageLimit) {
-      // if page is not a number, resolve to 1
-      const page = parseInt(query?.page as string ?? '1');
-      console.log(page)
-      // if page is over the page limit, resolve to page limit
-      if (page > pageLimit) {
-        Router.push({ query: { page: pageLimit } })
-        setCurrentPage(pageLimit)
-      }
-      // if page is under 1 or is NaN, resolve to 1
-      else if (page < 1 || isNaN(page)) {
-        Router.push({ query: { page: 1 } })
-        setCurrentPage(1)
-      }
-      // otherwise set page using query parameter
-      else {
-
-        setCurrentPage(page)
-      }
-    }
-  }, [query, pageLimit, isLoading])
+  useEffect(() => handlePageMetrics(isLoading, pageLimit, query, setCurrentPage), [query, pageLimit, isLoading])
 
   if (isError) {
     return <Error statusCode={parseInt(error.message)} />

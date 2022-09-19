@@ -1,8 +1,9 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, act } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import Pagination from './Pagination'
 import React from 'react'
 import userEvent from '@testing-library/user-event'
+// import { act } from 'react-dom/test-utils';
 
 jest.mock("next/router", () => {
     return {
@@ -36,11 +37,20 @@ describe('pagination component', () => {
         expect(mockCallback).toHaveBeenCalledWith(2)
     })
 
-    // test('previous button decrements page number', async () => {
-    //     await screen.findByTestId('table-pagination')
-    // })
+})
 
-    // test('next button is disabled at final page', async () => {
-    //     await screen.findByTestId('table-pagination')
-    // })
+describe('pagination component pre-set', () => {
+
+    test('previous button decrements page number', async () => {
+        render(<Pagination currentPage={2} setCurrentPage={mockCallback} count={82} />)
+        const prevButton = await screen.findByTitle('Previous Page')
+        await userEvent.click(prevButton)
+        expect(mockCallback).toHaveBeenCalledWith(1)
+    })
+
+    test('next button is disabled at final page', async () => {
+        render(<Pagination currentPage={9} setCurrentPage={mockCallback} count={82} />)
+        const disabledButton = await screen.findByTitle('Next Page')
+        expect(disabledButton).toHaveClass('ant-pagination-disabled')
+    })
 })

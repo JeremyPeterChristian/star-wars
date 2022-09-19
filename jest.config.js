@@ -12,7 +12,6 @@ module.exports = {
     ]
   },
   testEnvironment: 'jsdom',
-  // moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js'],
   setupFiles: ['<rootDir>/jest-setup/media-mock.js']
 };
